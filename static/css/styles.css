@@ -280,6 +280,7 @@ html,body{
 .home-desc{
     color: #ECDCC5;
     font-size: 25px;
+    margin-bottom: 60px;
 }
 
 .photo button{
@@ -327,6 +328,19 @@ html,body{
     text-align: center;
 }
 
+.upload-title{
+    color: #ECDCC5;
+    font-size: 24px;
+    margin-top: 90px
+}
+.upscale-title{
+    color: #ECDCC5;
+    font-size: 24px;
+    margin-top: 58px;
+}
+.uploaded-image-container img{
+  max-width: 600px;
+}
 /*GO PREMIUM SCREEN*/
 .prem-free, .prem-monthly, .prem-yearly {
     background-color: #ECDCC5;

@@ -42,8 +42,8 @@ function upscaleImage() {
         var ctx = canvas.getContext('2d');
 
         // Upscale the image 2x
-        canvas.width = uploadedImage.width * 2;
-        canvas.height = uploadedImage.height * 2;
+        canvas.width = uploadedImage.width * 3;
+        canvas.height = uploadedImage.height * 3;
 
         ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
 
