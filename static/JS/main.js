@@ -36,57 +36,12 @@ function updateUploadStatus() {
     }
 }
 
-
 function upscaleImage() {
     if (uploadedImage) {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
 
-        exec(`python ${__dirname}/../../edsr_main.py ${uploadedImage}`, (error, stdout, stderr) => {
-            if (error) {
-                console.error(`exec error: ${error}`);
-                return;
-            }
-            console.log(`stdout: ${stdout}`);
-            console.error(`stderr: ${stderr}`);
-
-            upscaled = new Image();
-            upscaled.src = stdout.trim();
-            upscaled.onload = () => {
-                canvas.width = upscaled.width * 2;
-                canvas.height = upscaled.height * 2;
-
-                ctx.drawImage(upscaled, 0, 0, canvas.width, canvas.height);
-
-                var imageContainer = document.getElementById('image-container');
-                imageContainer.innerHTML = '';
-                imageContainer.appendChild(canvas);
-
-                upscaledImage = canvas.toDataURL();
-
-                document.getElementById('upload-buttons').style.display = 'none';
-                document.getElementById('download-button').style.display = 'block';
-                document.getElementById('uploaded-column').style.display = 'grid';
-                document.getElementById('upscaled-column').style.display = 'grid';
-
-                var uploadedImageContainer = document.getElementById('uploaded-image-container');
-                uploadedImageContainer.innerHTML = '';
-                uploadedImageContainer.appendChild(uploadedImage);
-
-                var upscaledImageContainer = document.getElementById('upscaled-image-container');
-                upscaledImageContainer.innerHTML = '';
-                upscaledImageContainer.appendChild(canvas);
-            };
-        });
-    }
-}
-
-
-/*function upscaleImage() {
-    if (uploadedImage) {
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
-
+        // Upscale the image 2x
         canvas.width = uploadedImage.width * 3;
         canvas.height = uploadedImage.height * 3;
 
@@ -111,7 +66,7 @@ function upscaleImage() {
         upscaledImageContainer.innerHTML = '';
         upscaledImageContainer.appendChild(canvas);
     }
-}*/
+}
 
 function downloadImage() {
     if (upscaledImage) {
