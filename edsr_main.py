@@ -20,4 +20,3 @@ cv2.imwrite('./images/output/edsr_upscaled_test_4x.png', upscaled)
 bicubic = cv2.resize(image, (upscaled.shape[1], upscaled.shape[0]), interpolation=cv2.INTER_CUBIC)
 # save the image
 cv2.imwrite('./images/output/bicubic_test_4x.png', bicubic)
-
