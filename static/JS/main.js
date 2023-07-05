@@ -4,6 +4,7 @@ var upscaledImage;
 function updateUploadStatus() {
     var fileInput = document.getElementById('file');
     var uploadStatus = document.querySelector('.upload-status');
+    var uploadButtons = document.getElementById('upload-buttons');
 
     if (fileInput.files.length > 0) {
         var fileSize = fileInput.files[0].size / 1024 / 1024; // size in MB
@@ -11,12 +12,17 @@ function updateUploadStatus() {
 
         var reader = new FileReader();
 
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             uploadedImage = new Image();
-            uploadedImage.onload = function() {
+            uploadedImage.onload = function () {
                 var imageContainer = document.getElementById('image-container');
                 imageContainer.innerHTML = '';
                 imageContainer.appendChild(uploadedImage);
+
+                document.getElementById('uploaded-column').style.display = 'none';
+                document.getElementById('upscaled-column').style.display = 'none';
+                uploadButtons.style.display = 'block';
+                document.getElementById('download-button').style.display = 'none';
             };
 
             uploadedImage.src = e.target.result;
@@ -25,6 +31,8 @@ function updateUploadStatus() {
         reader.readAsDataURL(fileInput.files[0]);
     } else {
         uploadStatus.textContent = '';
+        uploadButtons.style.display = 'none';
+        document.getElementById('download-button').style.display = 'none';
     }
 }
 
@@ -44,6 +52,19 @@ function upscaleImage() {
         imageContainer.appendChild(canvas);
 
         upscaledImage = canvas.toDataURL();
+
+        document.getElementById('upload-buttons').style.display = 'none';
+        document.getElementById('download-button').style.display = 'block';
+        document.getElementById('uploaded-column').style.display = 'grid';
+        document.getElementById('upscaled-column').style.display = 'grid';
+
+        var uploadedImageContainer = document.getElementById('uploaded-image-container');
+        uploadedImageContainer.innerHTML = '';
+        uploadedImageContainer.appendChild(uploadedImage);
+
+        var upscaledImageContainer = document.getElementById('upscaled-image-container');
+        upscaledImageContainer.innerHTML = '';
+        upscaledImageContainer.appendChild(canvas);
     }
 }
 

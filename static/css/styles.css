@@ -290,6 +290,7 @@ html,body{
     border-radius: 20px;
     font-weight: bold;
     font-family: 'BeVietnam';
+    margin-bottom: 30px;
 }
 .upload-status{
     background-color: #ECDCC5;
@@ -305,20 +306,26 @@ html,body{
     margin-bottom: 30px;
 }
 
-.image-container{
-    background-color: white;
-    width: 360px;
-    height: 590px;
-    border-radius: 50px;
-    margin: 30px 10px 30px 245px;
-    padding: 40px 50px;
-    font-size: 24px;
+.image-container {
+    display: flex;
+    justify-content: space-between;
 }
 
+.image-column {
+    flex-basis: 45%;
+}
 
+#uploaded-image img, #upscaled-image img {
+    width: 500px;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
 
-
-
+#download-button {
+    text-align: center;
+}
 
 /*GO PREMIUM SCREEN*/
 .prem-free, .prem-monthly, .prem-yearly {
