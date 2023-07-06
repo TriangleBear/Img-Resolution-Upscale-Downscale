@@ -1,5 +1,8 @@
+const { exec } = require('child_process');
+
 var uploadedImage;
 var upscaledImage;
+
 
 function updateUploadStatus() {
     var fileInput = document.getElementById('file');
@@ -36,16 +39,26 @@ function updateUploadStatus() {
     }
 }
 
+
 function upscaleImage() {
     if (uploadedImage) {
+
+        exec(`python ${__dirname}/../../edsr_main.py ${uploadedImage}`, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+            console.error(`stderr: ${stderr}`);
+        });
+
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
 
-        // Upscale the image 2x
-        canvas.width = uploadedImage.width * 3;
-        canvas.height = uploadedImage.height * 3;
+        canvas.width = py_upscaled.width;
+        canvas.height = py_upscaled.height;
 
-        ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(py_upscaled, 0, 0, canvas.width, canvas.height);
 
         var imageContainer = document.getElementById('image-container');
         imageContainer.innerHTML = '';
@@ -67,6 +80,7 @@ function upscaleImage() {
         upscaledImageContainer.appendChild(canvas);
     }
 }
+
 
 function downloadImage() {
     if (upscaledImage) {

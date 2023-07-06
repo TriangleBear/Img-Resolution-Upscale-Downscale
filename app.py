@@ -2,13 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for,session
 import pyrebase
 from requests.exceptions import HTTPError
 import re
-from key import firebaseConfig, secret_key
+from key import firebaseConfig
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 
 app = Flask(__name__)
-app.secret_key= secret_key
 
 def check_user_logged_in():
     if 'user_id' in session:
@@ -41,7 +40,7 @@ def login():
             session['user_id'] = login['idToken']
             return redirect(url_for('home'))
         except:
-            error_message= 'Incorrect email or password.'
+            error_message = "Invalid email or password"
             return render_template('login_screen.html', error_message=error_message)
 
     return render_template('login_screen.html')
