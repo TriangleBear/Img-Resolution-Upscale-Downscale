@@ -1,30 +1,22 @@
 import cv2
 from cv2 import dnn_superres
-from PIL import Image
-import base64
-from base64 import decodestring
 
-#(width,height)
+# EDSR
+# initialize super resolution object
+sr = dnn_superres.DnnSuperResImpl_create()
+# read the model
+path = './models/EDSR_x4.pb'
+sr.readModel(path)
+# set the model and scale
+sr.setModel('edsr', 4)
+# load the image
+image = cv2.imread('./images/DIV2K_valid_LR_x8/0817x8.png')
+# upsample the image
+upscaled = sr.upsample(image)
+# save the upscaled image
+cv2.imwrite('./images/output/edsr_upscaled_test_4x.png', upscaled)
 
-def edsr(uploadedImage):
-    js_image = Image.fromstring('RGB', decodestring(uploadedImage))
-
-    sr = dnn_superres.DnnSuperResImpl_create()
-
-    path = './models/EDSR_x4.pb'
-    sr.readModel(path)
-
-    sr.setModel('edsr', 4)
-
-    py_image = cv2.imread(js_image)
-
-    py_upscaled = sr.upsample(py_image)
-
-    #with open(py_upscaled, "rb") as py_convert:
-        #js_upscaled = base64.b64encode(py_convert.read())
-
-    return py_upscaled
-
-    #cv2.imwrite('./images/output/edsr_upscaled_test_4x.png', py_upscaled)
-
-
+# traditional method - bicubic
+bicubic = cv2.resize(image, (upscaled.shape[1], upscaled.shape[0]), interpolation=cv2.INTER_CUBIC)
+# save the image
+cv2.imwrite('./images/output/bicubic_test_4x.png', bicubic)
