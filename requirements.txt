@@ -1,0 +1,7 @@
+Flask==2.3.2
+numpy==1.25.0
+opencv_contrib_python==4.8.0.74
+opencv_python==4.8.0.74
+Pillow==10.0.0
+Pyrebase4==4.7.1
+Requests==2.31.0

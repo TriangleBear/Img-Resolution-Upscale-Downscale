@@ -40,7 +40,7 @@ def upscale_image():
     img = Image.open(io.BytesIO(imgdata))
 
     sr = dnn_superres.DnnSuperResImpl_create()
-    path = "./models/EDSR_x4.pb"
+    path = "./model/EDSR_x4.pb"
     sr.readModel(path)
     sr.setModel("edsr", 4)
 
