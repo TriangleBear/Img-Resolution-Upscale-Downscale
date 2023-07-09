@@ -1,8 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request, redirect, url_for,session, make_response
 import pyrebase
 from requests.exceptions import HTTPError
 import re
 from key import firebaseConfig, secret_key
+import cv2
+from cv2 import dnn_superres
+
+from PIL import Image
+import io
+import base64
+import numpy as np
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
@@ -16,6 +23,27 @@ def check_user_logged_in():
     else:
         return False
 
+@app.route('/upscale', methods=['POST'])
+def upscale_image():
+    uploaded_image = request.files['uploadedImage']
+    image_bytes = uploaded_image.read()
+    image_object = Image.open(io.BytesIO(image_bytes))
+
+    sr = dnn_superres.DnnSuperResImpl_create()
+    path = './models/EDSR_x4.pb'
+    sr.readModel(path)
+    sr.setModel('edsr', 4)
+
+    # upsample the image
+    upscaled_image = sr.upsample(image_object)
+
+    buffered = io.BytesIO()
+    upscaled_image.save(buffered, format="JPEG")
+    upscaled_image_64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    
+    response = make_response(upscaled_image_64)
+
+    return response  
 
 @app.route('/')
 def home():

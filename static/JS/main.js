@@ -36,16 +36,35 @@ function updateUploadStatus() {
     }
 }
 
-function upscaleImage() {
+/*function upscaleImage() {
     if (uploadedImage) {
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
 
-        // Upscale the image 2x
-        canvas.width = uploadedImage.width * 3;
-        canvas.height = uploadedImage.height * 3;
+        var formData = new FormData();
+        formData.append('uploadedImage', uploadedImage);
 
-        ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
+        $.ajax({
+            url: '/upscale',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) 
+            {
+                var upscaledImage = new Image();
+                upscaledImage.src = 'data:image/jpeg;base64,' + response;
+                $('#upscaled-image-container').html(upscaledImage);
+            },
+            error: function(error) 
+            {
+                console.log(error);
+            }
+        })
+
+        canvas.width = upscaledImage.width;
+        canvas.height = upscaledImage.height;
+        ctx.drawImage(upscaledImage, 0, 0, canvas.width, canvas.height);
 
         var imageContainer = document.getElementById('image-container');
         imageContainer.innerHTML = '';
@@ -66,7 +85,7 @@ function upscaleImage() {
         upscaledImageContainer.innerHTML = '';
         upscaledImageContainer.appendChild(canvas);
     }
-}
+}*/
 
 function downloadImage() {
     if (upscaledImage) {

@@ -52,7 +52,7 @@
 
                 <div id="upload-buttons" style="display: none;">
                     <div class="Upscale">
-                        <button class="UpscaleButt" onclick="upscaleImage()">UPSCALE</button>
+                        <button class="UpscaleButt" id="upscale-button">UPSCALE</button>
                         <span class="upload-status"></span>
                     </div>
                 </div>
@@ -68,8 +68,70 @@
                 </div>
             </div>
         </section>
-    </div>
 
-    <script src="/static/JS/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#upscale-button').click(function() 
+                {
+                    if (uploadedImage) 
+                    {
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        var formData = new FormData();
+                        formData.append('uploadedImage', uploadedImage);
+    
+                        $.ajax
+                        ({
+                            url: '/upscale',
+                            method: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(response) 
+                            {
+                                var upscaledImage = new Image();
+                                upscaledImage.src = 'data:image/jpeg;base64,' + response;
+                                $('#upscaled-image-container').html(upscaledImage);
+    
+                                canvas.width = upscaledImage.width;
+                                canvas.height = upscaledImage.height;
+                                ctx.drawImage(upscaledImage, 0, 0, canvas.width, canvas.height);
+    
+                                var imageContainer = document.getElementById('image-container');
+                                imageContainer.innerHTML = '';
+                                imageContainer.appendChild(canvas);
+    
+                                upscaledImage = canvas.toDataURL();
+    
+                                document.getElementById('upload-buttons').style.display = 'none';
+                                document.getElementById('download-button').style.display = 'block';
+                                document.getElementById('uploaded-column').style.display = 'grid';
+                                document.getElementById('upscaled-column').style.display = 'grid';
+    
+                                var uploadedImageContainer = document.getElementById('uploaded-image-container');
+                                uploadedImageContainer.innerHTML = '';
+                                uploadedImageContainer.appendChild(uploadedImage);
+    
+                                var upscaledImageContainer = document.getElementById('upscaled-image-container');
+                                upscaledImageContainer.innerHTML = '';
+                                upscaledImageContainer.appendChild(canvas);
+                            },
+                            error: function(error) 
+                            {
+                                console.log(error);
+                            }
+                        });
+                    }
+                    else 
+                    {
+                        alert('Please upload an image first!');
+                    }
+                }
+                );
+            });
+        </script>
+        <script src="/static/JS/main.js"></script>
+    </div>
 </body>
 </html>
