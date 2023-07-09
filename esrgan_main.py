@@ -1,7 +1,7 @@
 import cv2
 from cv2 import dnn_superres
 
-# EDSR
+# ESRGAN
 # initialize super resolution object
 sr = dnn_superres.DnnSuperResImpl_create()
 # read the model
