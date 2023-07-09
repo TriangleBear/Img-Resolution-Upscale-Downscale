@@ -90,7 +90,7 @@
                             contentType: false,
                             success: function(response) 
                             {
-                                var upscaledImage = new Image();
+                                upscaledImage = new Image();
                                 upscaledImage.src = 'data:image/jpeg;base64,' + response;
                                 $('#upscaled-image-container').html(upscaledImage);
     
