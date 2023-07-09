@@ -44,7 +44,6 @@ def upscale_image():
     sr.readModel(path)
     sr.setModel("edsr", 4)
 
-    # Upsample the image
     upscaled_image = sr.upsample(np.array(img)[:, :, :-1])
     upscaled_image = Image.fromarray(upscaled_image)
     buffered = io.BytesIO()
@@ -109,7 +108,6 @@ def register():
             error_message = "Invalid email format."
             return render_template("register_screen.html", error_message=error_message)
 
-        # Regular expression pattern for password conditions
         password_pattern = (
             r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"
         )
