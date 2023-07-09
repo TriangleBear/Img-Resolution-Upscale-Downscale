@@ -3,9 +3,7 @@ import pyrebase
 from requests.exceptions import HTTPError
 import re
 from key import firebaseConfig, secret_key
-import cv2
 from cv2 import dnn_superres
-
 from PIL import Image
 import io
 import base64
