@@ -42,13 +42,7 @@
                     <img class="imgicon" src="../static/utils/images/Imgicon.png">
                 </label>
 
-                <div id="upscaled-column" style="display: none;">
-                    <div class="upscaled-image">
-                        <p class="upscale-title">Upscaled Image</p>
-                        <div id="upscaled-image-container" style="max-width: 600px;">
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div id="upload-buttons" style="display: none;">
                     <div class="Upscale">
@@ -56,7 +50,13 @@
                         <span class="upload-status"></span>
                     </div>
                 </div>
-
+                <div id="upscaled-column" style="display: none;">
+                    <div class="upscaled-image">
+                        <p class="upscale-title">Upscaled Image</p>
+                        <div id="upscaled-image-container" style="max-width: 600px;">
+                        </div>
+                    </div>
+                </div>
                 <div id="image-container">
                     <!-- Empty div -->
                 </div>
@@ -74,48 +74,23 @@
             $(document).ready(function() {
                 $('#upscale-button').click(function() 
                 {
-                    if (uploadedImage) 
+                    var imageData = localStorage.getItem('imageData');
+                    console.log(imageData);
+                    if (uploadedImage && imageData != null) 
                     {
-                        var canvas = document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        var formData = new FormData();
-                        formData.append('uploadedImage', uploadedImage);
     
                         $.ajax
                         ({
                             url: '/upscale',
                             method: 'POST',
-                            data: formData,
-                            processData: false,
-                            contentType: false,
+                            data: {
+                                'imageData': imageData
+                            },
                             success: function(response) 
                             {
-                                upscaledImage = new Image();
-                                upscaledImage.src = 'data:image/jpeg;base64,' + response;
-                                $('#upscaled-image-container').html(upscaledImage);
-    
-                                canvas.width = upscaledImage.width;
-                                canvas.height = upscaledImage.height;
-                                ctx.drawImage(upscaledImage, 0, 0, canvas.width, canvas.height);
-    
-                                var imageContainer = document.getElementById('image-container');
-                                imageContainer.innerHTML = '';
-                                imageContainer.appendChild(canvas);
-    
-                                upscaledImage = canvas.toDataURL();
-    
-                                document.getElementById('upload-buttons').style.display = 'none';
-                                document.getElementById('download-button').style.display = 'block';
-                                document.getElementById('uploaded-column').style.display = 'grid';
-                                document.getElementById('upscaled-column').style.display = 'grid';
-    
-                                var uploadedImageContainer = document.getElementById('uploaded-image-container');
-                                uploadedImageContainer.innerHTML = '';
-                                uploadedImageContainer.appendChild(uploadedImage);
-    
-                                var upscaledImageContainer = document.getElementById('upscaled-image-container');
-                                upscaledImageContainer.innerHTML = '';
-                                upscaledImageContainer.appendChild(canvas);
+                                var element = document.getElementById("upscaled-column");
+                                element.style.display = "block";
+                                $('#upscaled-image-container').html("<img src='data:image/jpeg;base64," + response + "' alt='Generated Image' class='img-fluid rounded-3'>");
                             },
                             error: function(error) 
                             {

@@ -25,8 +25,10 @@ def check_user_logged_in():
 
 @app.route('/upscale', methods=['POST'])
 def upscale_image():
-    uploaded_image = request.form['uploadedImage']
-    imgdata = base64.b64decode(str(uploaded_image))
+    uploaded_image = request.form['imageData']
+    uploaded_image = uploaded_image.replace('data:image/png;base64,', '')
+
+    imgdata = base64.b64decode(uploaded_image)
     img = Image.open(io.BytesIO(imgdata))
 
     sr = dnn_superres.DnnSuperResImpl_create()
@@ -35,8 +37,8 @@ def upscale_image():
     sr.setModel('edsr', 4)
 
     # upsample the image
-    upscaled_image = sr.upsample(img)
-
+    upscaled_image = sr.upsample(np.array(img)[:,:,:-1])
+    upscaled_image = Image.fromarray(upscaled_image)
     buffered = io.BytesIO()
     upscaled_image.save(buffered, format="JPEG")
     upscaled_image_64 = base64.b64encode(buffered.getvalue()).decode('utf-8')

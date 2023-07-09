@@ -23,6 +23,17 @@ function updateUploadStatus() {
                 document.getElementById('upscaled-column').style.display = 'none';
                 uploadButtons.style.display = 'block';
                 document.getElementById('download-button').style.display = 'none';
+
+                // Convert image to base64
+                var canvas = document.createElement('canvas');
+                canvas.width = uploadedImage.width;
+                canvas.height = uploadedImage.height;
+
+                var context = canvas.getContext('2d');
+                context.drawImage(uploadedImage, 0, 0);
+
+                var base64Data = canvas.toDataURL('image/png'); // Change 'image/png' to the desired MIME type if needed
+                localStorage.setItem('imageData', base64Data);
             };
 
             uploadedImage.src = e.target.result;
@@ -35,57 +46,6 @@ function updateUploadStatus() {
         document.getElementById('download-button').style.display = 'none';
     }
 }
-
-/*function upscaleImage() {
-    if (uploadedImage) {
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
-
-        var formData = new FormData();
-        formData.append('uploadedImage', uploadedImage);
-
-        $.ajax({
-            url: '/upscale',
-            method: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) 
-            {
-                var upscaledImage = new Image();
-                upscaledImage.src = 'data:image/jpeg;base64,' + response;
-                $('#upscaled-image-container').html(upscaledImage);
-            },
-            error: function(error) 
-            {
-                console.log(error);
-            }
-        })
-
-        canvas.width = upscaledImage.width;
-        canvas.height = upscaledImage.height;
-        ctx.drawImage(upscaledImage, 0, 0, canvas.width, canvas.height);
-
-        var imageContainer = document.getElementById('image-container');
-        imageContainer.innerHTML = '';
-        imageContainer.appendChild(canvas);
-
-        upscaledImage = canvas.toDataURL();
-
-        document.getElementById('upload-buttons').style.display = 'none';
-        document.getElementById('download-button').style.display = 'block';
-        document.getElementById('uploaded-column').style.display = 'grid';
-        document.getElementById('upscaled-column').style.display = 'grid';
-
-        var uploadedImageContainer = document.getElementById('uploaded-image-container');
-        uploadedImageContainer.innerHTML = '';
-        uploadedImageContainer.appendChild(uploadedImage);
-
-        var upscaledImageContainer = document.getElementById('upscaled-image-container');
-        upscaledImageContainer.innerHTML = '';
-        upscaledImageContainer.appendChild(canvas);
-    }
-}*/
 
 function downloadImage() {
     if (upscaledImage) {
