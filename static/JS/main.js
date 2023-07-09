@@ -36,43 +36,89 @@ function updateUploadStatus() {
     }
 }
 
-function upscaleImage() {
-    if (uploadedImage) {
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
+const form = document.getElementById('image-upload-form');
+            const fileInput = document.getElementById('image-file-input');
+            const upscaledImageContainer = document.getElementById('upscaled-image-container');
 
-        // Upscale the image 2x
-        canvas.width = uploadedImage.width * 3;
-        canvas.height = uploadedImage.height * 3;
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    const imageData = reader.result.split(',')[1];
+                    upscaleImage(imageData);
+                };
+            });
 
-        ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
+            function upscaleImage(imageData) {
+                const spinner = document.createElement('div');
+                spinner.classList.add('spinner');
+                upscaledImageContainer.appendChild(spinner);
+              
+                fetch('/upscale', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ image_data: imageData })
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    const upscaledImageData = data.upscaled_image_bytes;
+                    const upscaledImage = new Image();
+                    upscaledImage.src = 'data:image/jpeg;base64,' + upscaledImageData;
+                    upscaledImage.onload = () => {
+                      upscaledImageContainer.removeChild(spinner);
+                      upscaledImageContainer.appendChild(upscaledImage);
+                      document.getElementById('download-button').style.display = 'block';
+                    };
+                  })
+                  .catch(error => {
+                    console.error(error);
+                    upscaledImageContainer.removeChild(spinner);
+                    alert('Failed to upscale image. Please try again.');
+                  });
+              }
 
-        var imageContainer = document.getElementById('image-container');
-        imageContainer.innerHTML = '';
-        imageContainer.appendChild(canvas);
-
-        upscaledImage = canvas.toDataURL();
-
-        document.getElementById('upload-buttons').style.display = 'none';
-        document.getElementById('download-button').style.display = 'block';
-        document.getElementById('uploaded-column').style.display = 'grid';
-        document.getElementById('upscaled-column').style.display = 'grid';
-
-        var uploadedImageContainer = document.getElementById('uploaded-image-container');
-        uploadedImageContainer.innerHTML = '';
-        uploadedImageContainer.appendChild(uploadedImage);
-
-        var upscaledImageContainer = document.getElementById('upscaled-image-container');
-        upscaledImageContainer.innerHTML = '';
-        upscaledImageContainer.appendChild(canvas);
-    }
-}
+              /**function upscaleImage(imageData) {
+                const spinner = document.createElement('div');
+                spinner.classList.add('spinner');
+                upscaledImageContainer.appendChild(spinner);
+            
+                fetch('/upscale', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ image_data: imageData })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const upscaledImage = new Image();
+                    upscaledImage.src = 'data:image/jpeg;base64,' + data.upscaled_image_data;
+                    upscaledImage.onload = () => {
+                        upscaledImageContainer.removeChild(spinner);
+                        const canvas = document.createElement('canvas');
+                        canvas.width = upscaledImage.width;
+                        canvas.height = upscaledImage.height;
+                        const context = canvas.getContext('2d');
+                        context.drawImage(upscaledImage, 0, 0);
+                        const upscaledImageData = canvas.toDataURL('image/jpeg');
+                        const upscaledImageElement = document.createElement('img');
+                        upscaledImageElement.src = upscaledImageData;
+                        upscaledImageContainer.appendChild(upscaledImageElement);
+                    };
+                })
+                .catch(error => console.error(error));
+            }**/
 
 function downloadImage() {
     if (upscaledImage) {
-        var link = document.createElement('a');
-        link.download = 'upscaled-image.png';
-        link.href = upscaledImage;
+        const link = document.createElement('a');
+        link.download = 'upscaled-image.jpg';
+        link.href = upscaledImage.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
         link.click();
     }
 }
+

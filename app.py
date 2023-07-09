@@ -1,8 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request, redirect, url_for,session, jsonify
 import pyrebase
 from requests.exceptions import HTTPError
 import re
 from key import firebaseConfig, secret_key
+import cv2
+import base64
+import numpy as np
+import edsr_main
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
@@ -16,6 +20,25 @@ def check_user_logged_in():
     else:
         return False
 
+@app.route('/upscale', methods=['POST'])
+def upscale_image():
+    # Get the base64-encoded image data from the request
+    image_data = request.json['image_data']
+    
+    # Convert the base64-encoded image data to a numpy array
+    image_bytes = np.frombuffer(base64.b64decode(image_data), dtype=np.uint8)
+    image_object = cv2.imdecode(image_bytes, cv2.IMREAD_COLOR)
+    
+    # Upscale the image using the EDSR algorithm
+    upscaled_image_object = edsr_main.run(image_object)
+    
+    # Convert the upscaled image to base64-encoded image data
+    _, buffer = cv2.imencode('.jpg', upscaled_image_object)
+    upscaled_image_bytes = base64.b64encode(buffer).decode('utf-8')
+    
+    # Return the upscaled image as a response
+    response = {'upscaled_image_data': upscaled_image_bytes}
+    return jsonify(response)
 
 @app.route('/')
 def home():
