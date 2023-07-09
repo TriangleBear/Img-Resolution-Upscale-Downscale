@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for,session, jsonify
+from flask import Flask, render_template, request, redirect, url_for,session, make_response
 import pyrebase
 from requests.exceptions import HTTPError
 import re
 from key import firebaseConfig, secret_key
 import cv2
 from cv2 import dnn_superres
+
+from PIL import Image
+import io
 import base64
 import numpy as np
 
@@ -22,29 +25,27 @@ def check_user_logged_in():
 
 @app.route('/upscale', methods=['POST'])
 def upscale_image():
+    uploaded_image = request.form['imageData']
+    uploaded_image = uploaded_image.replace('data:image/png;base64,', '')
 
-    image_data = request.json['image_data']
-    
-    # Convert the base64-encoded image data to a numpy array
-    image_bytes = np.frombuffer(base64.b64decode(image_data), dtype=np.uint8)
-    image_object = cv2.imdecode(image_bytes, cv2.IMREAD_COLOR)
-    
+    imgdata = base64.b64decode(uploaded_image)
+    img = Image.open(io.BytesIO(imgdata))
+
     sr = dnn_superres.DnnSuperResImpl_create()
-
     path = './models/EDSR_x4.pb'
     sr.readModel(path)
     sr.setModel('edsr', 4)
 
     # upsample the image
-    upscaled_image_object = sr.upsample(image_object)
+    upscaled_image = sr.upsample(np.array(img)[:,:,:-1])
+    upscaled_image = Image.fromarray(upscaled_image)
+    buffered = io.BytesIO()
+    upscaled_image.save(buffered, format="JPEG")
+    upscaled_image_64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-    # Convert the upscaled image to base64-encoded image data
-    _, buffer = cv2.imencode('.jpg', upscaled_image_object)
-    upscaled_image_bytes = base64.b64encode(buffer).decode('utf-8')
-    
-    # Return the upscaled image as a response
-    response = {'upscaled_image_data': upscaled_image_bytes}
-    return jsonify(response)
+    response = make_response(upscaled_image_64)
+
+    return response  
 
 @app.route('/')
 def home():
@@ -152,4 +153,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

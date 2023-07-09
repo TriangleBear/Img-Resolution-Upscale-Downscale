@@ -16,14 +16,3 @@ def upscale(image_object):
     return image_object
 
 
-
-
-
-<<<<<<< HEAD
-=======
-# traditional method - bicubic
-bicubic = cv2.resize(image, (upscaled.shape[1], upscaled.shape[0]), interpolation=cv2.INTER_CUBIC)
-# save the image
-cv2.imwrite('./images/output/bicubic_test_4x.png', bicubic)
-
->>>>>>> parent of b18fc28 (Default)

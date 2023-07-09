@@ -23,6 +23,17 @@ function updateUploadStatus() {
                 document.getElementById('upscaled-column').style.display = 'none';
                 uploadButtons.style.display = 'block';
                 document.getElementById('download-button').style.display = 'none';
+
+                // Convert image to base64
+                var canvas = document.createElement('canvas');
+                canvas.width = uploadedImage.width;
+                canvas.height = uploadedImage.height;
+
+                var context = canvas.getContext('2d');
+                context.drawImage(uploadedImage, 0, 0);
+
+                var base64Data = canvas.toDataURL('image/png'); // Change 'image/png' to the desired MIME type if needed
+                localStorage.setItem('imageData', base64Data);
             };
 
             uploadedImage.src = e.target.result;
@@ -36,89 +47,11 @@ function updateUploadStatus() {
     }
 }
 
-const form = document.getElementById('image-upload-form');
-            const fileInput = document.getElementById('image-file-input');
-            const upscaledImageContainer = document.getElementById('upscaled-image-container');
-
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const file = fileInput.files[0];
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => {
-                    const imageData = reader.result.split(',')[1];
-                    upscaleImage(imageData);
-                };
-            });
-
-            function upscaleImage(imageData) {
-                const spinner = document.createElement('div');
-                spinner.classList.add('spinner');
-                upscaledImageContainer.appendChild(spinner);
-              
-                fetch('/upscale', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({ image_data: imageData })
-                })
-                  .then(response => response.json())
-                  .then(data => {
-                    const upscaledImageData = data.upscaled_image_bytes;
-                    const upscaledImage = new Image();
-                    upscaledImage.src = 'data:image/jpeg;base64,' + upscaledImageData;
-                    upscaledImage.onload = () => {
-                      upscaledImageContainer.removeChild(spinner);
-                      upscaledImageContainer.appendChild(upscaledImage);
-                      document.getElementById('download-button').style.display = 'block';
-                    };
-                  })
-                  .catch(error => {
-                    console.error(error);
-                    upscaledImageContainer.removeChild(spinner);
-                    alert('Failed to upscale image. Please try again.');
-                  });
-              }
-
-              /**function upscaleImage(imageData) {
-                const spinner = document.createElement('div');
-                spinner.classList.add('spinner');
-                upscaledImageContainer.appendChild(spinner);
-            
-                fetch('/upscale', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ image_data: imageData })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const upscaledImage = new Image();
-                    upscaledImage.src = 'data:image/jpeg;base64,' + data.upscaled_image_data;
-                    upscaledImage.onload = () => {
-                        upscaledImageContainer.removeChild(spinner);
-                        const canvas = document.createElement('canvas');
-                        canvas.width = upscaledImage.width;
-                        canvas.height = upscaledImage.height;
-                        const context = canvas.getContext('2d');
-                        context.drawImage(upscaledImage, 0, 0);
-                        const upscaledImageData = canvas.toDataURL('image/jpeg');
-                        const upscaledImageElement = document.createElement('img');
-                        upscaledImageElement.src = upscaledImageData;
-                        upscaledImageContainer.appendChild(upscaledImageElement);
-                    };
-                })
-                .catch(error => console.error(error));
-            }**/
-
 function downloadImage() {
     if (upscaledImage) {
-        const link = document.createElement('a');
-        link.download = 'upscaled-image.jpg';
-        link.href = upscaledImage.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
+        var link = document.createElement('a');
+        link.download = 'upscaled-image.png';
+        link.href = upscaledImage;
         link.click();
     }
 }
-
