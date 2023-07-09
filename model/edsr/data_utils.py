@@ -6,14 +6,16 @@ import cv2
 import tensorflow as tf
 import random
 
+
 def getpathsx(path):
     """
     Get all image paths from folder 'path'.
     """
     data = pathlib.Path(path)
-    all_image_paths = list(data.glob('*'))
+    all_image_paths = list(data.glob("*"))
     all_image_paths = [str(p) for p in all_image_paths]
     return all_image_paths
+
 
 def getpaths(path):
     """
@@ -21,13 +23,14 @@ def getpaths(path):
     """
     im_paths = []
     for fil in os.listdir(path):
-            if '.png' in fil:
-                if "._" in fil:
-                    #avoid dot underscore
-                    pass
-                else:
-                    im_paths.append(os.path.join(path, fil))
+        if ".png" in fil:
+            if "._" in fil:
+                # avoid dot underscore
+                pass
+            else:
+                im_paths.append(os.path.join(path, fil))
     return im_paths
+
 
 def make_val_dataset(paths, scale, mean):
     """
@@ -38,12 +41,19 @@ def make_val_dataset(paths, scale, mean):
         im_norm = cv2.imread(p.decode(), 3).astype(np.float32) - mean
 
         # divisible by scale - create low-res
-        hr = im_norm[0:(im_norm.shape[0] - (im_norm.shape[0] % scale)),
-                  0:(im_norm.shape[1] - (im_norm.shape[1] % scale)), :]
-        lr = cv2.resize(hr, (int(hr.shape[1] / scale), int(hr.shape[0] / scale)),
-                        interpolation=cv2.INTER_CUBIC)
+        hr = im_norm[
+            0 : (im_norm.shape[0] - (im_norm.shape[0] % scale)),
+            0 : (im_norm.shape[1] - (im_norm.shape[1] % scale)),
+            :,
+        ]
+        lr = cv2.resize(
+            hr,
+            (int(hr.shape[1] / scale), int(hr.shape[0] / scale)),
+            interpolation=cv2.INTER_CUBIC,
+        )
 
         yield lr, hr
+
 
 def make_dataset(paths, scale, mean):
     """
@@ -62,10 +72,16 @@ def make_dataset(paths, scale, mean):
             im_norm = cv2.flip(im_norm, r)
 
         # divisible by scale - create low-res
-        hr = im_norm[0:(im_norm.shape[0] - (im_norm.shape[0] % scale)),
-                  0:(im_norm.shape[1] - (im_norm.shape[1] % scale)), :]
-        lr = cv2.resize(hr, (int(hr.shape[1] / scale), int(hr.shape[0] / scale)),
-                        interpolation=cv2.INTER_CUBIC)
+        hr = im_norm[
+            0 : (im_norm.shape[0] - (im_norm.shape[0] % scale)),
+            0 : (im_norm.shape[1] - (im_norm.shape[1] % scale)),
+            :,
+        ]
+        lr = cv2.resize(
+            hr,
+            (int(hr.shape[1] / scale), int(hr.shape[0] / scale)),
+            interpolation=cv2.INTER_CUBIC,
+        )
 
         numx = int(lr.shape[0] / size_lr)
         numy = int(lr.shape[1] / size_lr)
@@ -91,6 +107,7 @@ def make_dataset(paths, scale, mean):
 
                 yield x, y
 
+
 def calcmean(imageFolder, bgr):
     """
     Calculates the mean of a dataset.
@@ -101,7 +118,6 @@ def calcmean(imageFolder, bgr):
     im_counter = 0
 
     for p in paths:
-
         image = np.asarray(Image.open(p))
 
         mean_rgb = np.mean(image, axis=(0, 1), dtype=np.float64)
@@ -116,6 +132,6 @@ def calcmean(imageFolder, bgr):
 
     # rgb to bgr
     if bgr is True:
-        total_mean = total_mean[...,::-1]
+        total_mean = total_mean[..., ::-1]
 
     return total_mean
