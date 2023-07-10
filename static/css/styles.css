@@ -197,13 +197,6 @@ html,body{
 }
 /* HOME SCREEN */
 .menu-bar {
-<<<<<<< Updated upstream
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #F55759;
-    padding: 10px;
-=======
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -215,7 +208,6 @@ html,body{
   width: 100%;
   z-index: 9999;
   background-color: #001233;
->>>>>>> Stashed changes
 }
 
 .home-logo {
@@ -228,16 +220,6 @@ html,body{
 }
 
 .menu-bar button {
-<<<<<<< Updated upstream
-    background-color: #001233;
-    color: #F55759;
-    border: none;
-    font-size: 15px;
-    font-weight: bolder;
-    height: 40px;
-    width: 150px;
-    border-radius: 10px;
-=======
   background-color: #001233;
   color: #f55759;
   border: none;
@@ -246,7 +228,6 @@ html,body{
   height: 40px;
   width: 150px;
   border-radius: 10px;
->>>>>>> Stashed changes
 }
 .button-group current{
     border-width: 1px;
@@ -296,19 +277,11 @@ html,body{
     margin-top: 200px ;
     margin-left:200px;
 }
-<<<<<<< Updated upstream
-.home-title{
-    font-size: 80px;
-    font-weight: bolder;
-    color: #F55759;
-    width: 700px;
-=======
 .home-title {
   font-size: 80px;
   font-weight: 900;
   color: #f55759;
   width: 700px;
->>>>>>> Stashed changes
 }
 .home-desc{
     color: #ECDCC5;
@@ -317,25 +290,6 @@ html,body{
 }
 
 .photo button{
-<<<<<<< Updated upstream
-    width: 150px;
-    height: 50px;
-    background-color: #F55759;
-    margin-top: 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-family: 'BeVietnam';
-    margin-bottom: 30px;
-}
-.upload-status{
-    background-color: #ECDCC5;
-    width: 300px;
-    height: 100px;
-    padding: 10px 130px;
-    border-radius: 20px;
-    border-color: #F55759;
-    border-style: dashed;
-=======
   width: 150px;
   height: 50px;
   background-color: #f55759;
@@ -367,7 +321,6 @@ html,body{
   border-radius: 20px;
   border-color: #f55759;
   border-style: dashed;
->>>>>>> Stashed changes
 }
 .Upscale{
     margin-right: 120px;
