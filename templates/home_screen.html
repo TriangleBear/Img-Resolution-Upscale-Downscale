@@ -30,7 +30,7 @@
       <section class="home-describe">
         <p class="home-title">UPSCALE YOUR IMAGE</p>
         <p class="home-desc">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Revitalize your visuals: Elevate low-resolution images with AI-powered quality enhan
         </p>
 
         <div id="uploaded-column" style="display: none">
@@ -103,15 +103,15 @@
                     "<img src='" + imageSrc + "' alt='Upscaled Image'>"
                   );
                   $("#download-link").attr("href", imageSrc);
-                  $("#download-link").attr("download", "upscaled_image.jpg")
+                  $("#download-link").attr("download", "upscaled_image.jpg");
                   $("#download-button").css("display", "block");
                   $("#upscale-button").hide();
                   $(".upload-status").hide();
-                  $("#uploaded-column").hide();
+                 
+                  var uploadedImageContainer = document.getElementById("uploaded-image-container");
+                  uploadedImageContainer.innerHTML = "";
+                  uploadedImageContainer.appendChild(uploadedImage);
                   $("#image-container").hide();
-                  $("#uploaded-image-container").html(
-                    "<img src='data:image/jpeg;base64,"+ imageData + "'alt='Uploaded Image'>"
-                  );
                   $("#uploaded-column").show();
                 },
                 error: function (error) {
