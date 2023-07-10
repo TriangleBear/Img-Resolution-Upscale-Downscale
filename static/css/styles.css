@@ -198,6 +198,12 @@ body {
 }
 /* HOME SCREEN */
 .menu-bar {
+  background-color: #001233;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -212,6 +218,18 @@ body {
 .button-group {
   display: flex;
   gap: 15px;
+}
+
+.DownloadButt{
+  padding: 10px 20px;
+  background-color: #f55759;
+  margin-top: 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-family: "BeVietnam";
+  margin-bottom: 30px;
+  border: 2px solid white;
+  text-decoration: none;
 }
 
 .menu-bar button {

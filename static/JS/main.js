@@ -47,12 +47,3 @@ function updateUploadStatus() {
     document.getElementById("download-button").style.display = "none";
   }
 }
-
-function downloadImage() {
-  if (upscaledImage) {
-    var link = document.createElement("a");
-    link.download = "upscaled-image.png";
-    link.href = upscaledImage;
-    link.click();
-  }
-}
