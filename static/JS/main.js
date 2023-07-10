@@ -46,6 +46,7 @@ function updateUploadStatus() {
         document.getElementById('download-button').style.display = 'none';
     }
 }
+<<<<<<< Updated upstream
 
 function downloadImage() {
     if (upscaledImage) {
@@ -55,3 +56,5 @@ function downloadImage() {
         link.click();
     }
 }
+=======
+>>>>>>> Stashed changes
