@@ -11,7 +11,20 @@ body {
   font-family: "BeVietnam";
   margin: 0;
   padding: 0;
-}
+  animation: backgroundAnimation 10s 1;
+  }
+  @keyframes backgroundAnimation {
+  0% {
+  background-color: #001233;
+  }
+  30% {
+  background-color: #5a6c8d;
+  }
+  100% {
+  background-color: #001233;
+  }
+  }
+
 .trapezoid1 {
   height: 95px;
   width: 550px;
@@ -217,19 +230,19 @@ body {
 
 .button-group {
   display: flex;
-  gap: 15px;
 }
 
-.DownloadButt{
+.DownloadButt{  
+  text-align: center;
   padding: 10px 20px;
   background-color: #f55759;
-  margin-top: 20px;
+  margin-top: 50px;
   border-radius: 20px;
   font-weight: bold;
   font-family: "BeVietnam";
-  margin-bottom: 30px;
   border: 2px solid white;
   text-decoration: none;
+  color: #001233;
 }
 
 .menu-bar button {
@@ -258,37 +271,30 @@ body {
 
 .imglbl {
   background-color: #ecdcc5;
-  background-color: #ecdcc5;
-  width: 600px;
-  height: 500px;
+  width: 400px;
+  height: 300px;
   border-radius: 50px;
-  margin-top: 100px;
+  margin-top: 270px;
   margin-right: 200px;
   margin-left: 80px;
-  padding: 40px 50px;
-  color: #f55759;
+  padding: 50px 50px;
   font-size: 24px;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   border-color: #f55759;
   border-style: dashed;
 }
 
-
-
   
 .imglbl .uploaded-image-preview {
+  display: block;
+  margin: auto;
+  object-fit: contain;
   max-width: 100%;
   max-height: 100%;
-  display: block;
-  margin: 0 auto;
-  object-fit: contain; 
 }
-
-
 
 .imgicon {
   margin-left: 50px;
@@ -298,15 +304,16 @@ body {
 .home-column {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 100%;
+  border-color: #f55759;
 }
+
 .home-describe {
   margin-top: 200px;
   margin-left: 200px;
 }
 .home-title {
   font-size: 80px;
-  font-weight: 900;
+  font-weight: 1000;
   color: #f55759;
   width: 700px;
 }
@@ -341,26 +348,28 @@ body {
   margin-bottom: 30px;
 }
 
+.Upscale1{
+  margin-top: 400px;
+  margin-left: 80px;
+
+}
+
 .image-container {
-  display: flex;
+  display: hide;
   justify-content: space-between;
 }
+
 
 .image-column {
   flex-basis: 45%;
 }
 
-#uploaded-image img,
 #upscaled-image img {
   width: 500px;
   height: auto;
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
-}
-
-#download-button {
-  text-align: center;
 }
 
 .upload-title {
@@ -371,10 +380,24 @@ body {
 .upscale-title {
   color: #ecdcc5;
   font-size: 24px;
-  margin-top: 58px;
-}
-.uploaded-image-container img {
-  max-width: 600px;
+  padding: 10px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  }
+
+  .upscaled-image{
+    border: 2px solid #f55759;
+    
+  }
+
+.upscale-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-left: 50px;
 }
 
 .uploaded-image-container{

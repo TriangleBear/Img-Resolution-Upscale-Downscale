@@ -8,11 +8,7 @@
   </head>
   <body>
     <div class="menu-bar">
-      <img
-        class="home-logo"
-        src="../static/utils/images/pixelpic_logo.png"
-        alt="Pixel Pic"
-      />
+      <img class="home-logo" src="../static/utils/images/pixelpic_logo.png" alt="Pixel Pic">
       <div class="button-group">
         {% if user_logged_in %}
         <button class="current">Home</button>
@@ -30,192 +26,143 @@
       <section class="home-describe">
         <p class="home-title">UPSCALE YOUR IMAGE</p>
         <p class="home-desc">
-          Revitalize your visuals: Elevate low-resolution images with AI-powered quality enhan
+          Revitalize your visuals: Elevate low-resolution images with AI-powered quality enhancer
         </p>
 
-        <div id="uploaded-column" style="display: none">
+        <div id="uploaded-column" style="display:none">
           <div class="uploaded-image">
-            <div id="uploaded-image-container" style="display: none;"></div>
+          <div id="uploaded-image-container" style="display: none;"></div>
           </div>
-        </div>
-      </section>
+          </div>
 
 
-      <section>
-        <div class="photo">
+          </section>
+          
+          <section>
+          <div class="photo">
           <input
-            class="img"
-            type="file"
-            id="file"
-            accept="image/*"
-            onchange="updateUploadStatus()"
+          class="img"
+          type="file"
+          id="file"
+          accept="image/*"
+          onchange="updateUploadStatus()"
           />
           <label class="imglbl" for="file">
-            <img class="imgicon" src="../static/utils/images/Imgicon.png" />
+          <img class="uploaded-image-preview" src="../static/utils/images/Imgicon.png" />
+          <div id="image-container" style="display: none;">
+            <!-- Empty div -->
+            </div>
           </label>
+          
+          
+          
+          <div id="upload-buttons" style="display: none">
+          <div class="Upscale">
+          <button class="UpscaleButt" id="upscale-button">UPSCALE</button>
+          <span class="upload-status"></span>
+          </div>
+          </div>
 
-    <div id="upscaled-column" style="display: none">
-      <div class="upscaled-image">
-        <p class="upscale-title">Upscaled Image</p>
-        <div id="upscaled-image-container" style="max-width: 600px"></div>
-        <div id="image-container">
-          <!-- Empty div -->
+            </div>
+          </section>
         </div>
-      </div>
-    </div>
-
-
-    <div id="uploaded-column" style="display: none">
-      <div class="uploaded-image">
-      <p class="upload-title">Uploaded Image</p>
-      <div id="uploaded-image-container"></div>
-      </div>
-      </div>
-      </section>
-      
-      <section>
-      <div class="photo">
-      <input
-      class="img"
-      type="file"
-      id="file"
-      accept="image/*"
-      onchange="updateUploadStatus()"
-      />
-      <label class="imglbl" for="file">
-      <img class="uploaded-image-preview" src="../static/utils/images/Imgicon.png" />
-      </label>
-      
-      <div id="upscaled-column" style="display: none">
-      <div class="upscaled-image">
-      <p class="upscale-title">Upscaled Image</p>
-      <div id="upscaled-image-container" style="max-width: 600px"></div>
-      </div>
-      </div>
-      
-      <div id="upload-buttons" style="display: none">
-      <div class="Upscale">
-      <button class="UpscaleButt" id="upscale-button">UPSCALE</button>
-      <span class="upload-status"></span>
-      </div>
-      </div>
-      
-      <div id="image-container">
-      <!-- Empty div -->
-      </div>
-      
-      <div id="download-button" style="display: none">
-      <div class="Upscale1">
-      <a id="download-link" class="DownloadButt" download="upscaled_image.jpg" href="#" onclick="downloadImage()">
-      DOWNLOAD
-      </a>
-      </div>
-      </div>
-      </div>
-      </section>
-      
-      <style>
-      .imglbl {
-      display: inline-block;
-      width: 200px;
-      height: 200px;
-      border: 1px solid #ccc;
-      background-color: #f1f1f1;
-      text-align: center;
-      overflow: hidden;
-      }
-      
-      .imglbl .uploaded-image-preview {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      }
-      </style>
-      
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script>
-      $(document).ready(function () {
-      // Function to update the uploaded image preview
-      function updateImagePreview(input) {
-      if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-      $('.uploaded-image-preview').attr('src', e.target.result);
-      };
-      reader.readAsDataURL(input.files[0]);
-      }
-      }
-      
-      // Update the image preview when a file is selected
-      $('#file').change(function () {
-      updateImagePreview(this);
-      });
-      
-      // Rest of your code
-      $("#upscale-button").click(function () {
-      var imageData = localStorage.getItem("imageData");
-      console.log(imageData);
-      if (uploadedImage && imageData != null) {
-      $.ajax({
-      url: "/upscale",
-      method: "POST",
-      data: {
-      imageData: imageData,
-      },
-      success: function (response) {
-      var element = document.getElementById("upscaled-column");
-      element.style.display = "block";
-      var imageSrc = "data:image/jpeg;base64," + response;
-      $("#upscaled-image-container").html(
-      "<img src='" + imageSrc + "' alt='Upscaled Image'>"
-      );
-      $("#download-link").attr("href", imageSrc);
-      $("#download-link").attr("download", "upscaled_image.jpg");
-      $("#download-button").css("display", "block");
-      $("#upscale-button").hide();
-      $(".upload-status").hide();
-      
-      var uploadedImageContainer = document.getElementById("uploaded-image-container");
-      uploadedImageContainer.innerHTML = "";
-      uploadedImageContainer.appendChild(uploadedImage);
-      $("#image-container").hide();
-      $("#uploaded-column").show();
-      },
-      error: function (error) {
-      console.log(error);
-      },
-      });
-      } else {
-      alert("Please upload an image first!");
-      }
-      });
-      
-      function downloadImage() {
-      var downloadLink = document.getElementById("download-link");
-      var imageSrc = downloadLink.getAttribute("href");
-      var fileName = downloadLink.getAttribute("download");
-      
-      var link = document.createElement("a");
-      link.href = imageSrc;
-      link.download = fileName;
-      link.target = "_blank";
-      link.click();
-      
-      document.body.appendChild(link);
-      link.click();
-      
-      setTimeout(function () {
-      URL.revokeObjectURL(link.href);
-      link.remove();
-      }, 100);
-      }
-      });
-      </script>
+        <div id=".home-column" class="upscale-grid">
+          <div id="upscaled-column" style="display: none">
+            <div class="upscaled-image" style="margin-top: 20px;">
+            <p class="upscale-title" style="display:block;">UPSCALED IMAGE</p>
+            <div id="upscaled-image-container"></div>
+            </div>
+            </div>
+            <div id="download-button" style="display: none;">
+              <div class="Upscale1">
+              <a id="download-link" class="DownloadButt" download="upscaled_image.jpg" href="#" onclick="downloadImage()">
+              DOWNLOAD
+              </a>
+              </div>
+              </div>
+        </div>
+          
+        
+          
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script>
+          $(document).ready(function () {
+          // Function to update the uploaded image preview
+          function updateImagePreview(input) {
+          if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+          $('.uploaded-image-preview').attr('src', e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+          }
+          }
+          
+          // Update the image preview when a file is selected
+          $('#file').change(function () {
+          updateImagePreview(this);
+          });
+          
+          // Rest of your code
+          $("#upscale-button").click(function () {
+          var imageData = localStorage.getItem("imageData");
+          console.log(imageData);
+          if (uploadedImage && imageData != null) {
+          $.ajax({
+          url: "/upscale",
+          method: "POST",
+          data: {
+          imageData: imageData,
+          },
+          success: function (response) {
+          var element = document.getElementById("upscaled-column");
+          element.style.display = "block";
+          var imageSrc = "data:image/jpeg;base64," + response;
+          $("#upscaled-image-container").html(
+          "<img src='" + imageSrc + "' alt='Upscaled Image'>"
+          );
+          $("#download-link").attr("href", imageSrc);
+          $("#download-link").attr("download", "upscaled_image.jpg");
+          $("#download-button").css("display", "block");
+          $("#upscale-button").hide();
+          $(".upload-status").hide();
+          
+          var uploadedImageContainer = document.getElementById("uploaded-image-container");
+          uploadedImageContainer.innerHTML = "";
+          uploadedImageContainer.appendChild(uploadedImage);
+          $("#image-container").hide();
+          $("#uploaded-column").show();
+          },
+          error: function (error) {
+          console.log(error);
+          },
+          });
+          } else {
+          alert("Please upload an image first!");
+          }
+          });
+          
+          function downloadImage() {
+          var downloadLink = document.getElementById("download-link");
+          var imageSrc = downloadLink.getAttribute("href");
+          var fileName = downloadLink.getAttribute("download");
+          
+          var link = document.createElement("a");
+          link.href = imageSrc;
+          link.download = fileName;
+          link.target = "_blank";
+          link.click();
+          
+          document.body.appendChild(link);
+          link.click();
+          
+          setTimeout(function () {
+          URL.revokeObjectURL(link.href);
+          link.remove();
+          }, 100);
+          }
+          });
+          </script>
       <script src="/static/JS/main.js"></script>
-    </div>
   </body>
-
-</html
+</html>
