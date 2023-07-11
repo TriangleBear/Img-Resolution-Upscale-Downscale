@@ -30,15 +30,8 @@
       <section class="home-describe">
         <p class="home-title">UPSCALE YOUR IMAGE</p>
         <p class="home-desc">
-          Revitalize your visuals: Elevate low-resolution images with AI-powered quality enhan
+          Revitalize your visuals: Elevate low-resolution images with AI-powered quality enhancer.
         </p>
-
-        <div id="uploaded-column" style="display: none">
-          <div class="uploaded-image">
-            <p class="upload-title">Uploaded Image</p>
-            <div id="uploaded-image-container"></div>
-          </div>
-        </div>
       </section>
 
       <section>
@@ -54,13 +47,6 @@
             <img class="imgicon" src="../static/utils/images/Imgicon.png" />
           </label>
 
-          <div id="upscaled-column" style="display: none">
-            <div class="upscaled-image">
-              <p class="upscale-title">Upscaled Image</p>
-              <div id="upscaled-image-container" style="max-width: 600px"></div>
-            </div>
-          </div>
-
           <div id="upload-buttons" style="display: none">
             <div class="Upscale">
               <button class="UpscaleButt" id="upscale-button">UPSCALE</button>
@@ -72,16 +58,30 @@
             <!-- Empty div -->
           </div>
 
-          <div id="download-button" style="display: none">
-            <div class="Upscale1">
-              <a id="download-link" class="DownloadButt" download="upscaled_image.jpg" href="#" onclick="downloadImage()">
-                DOWNLOAD
-              </a>
-            </div>
           </div>
         </div>
       </section>
+    </div>
+    
+    <div id="uploaded-column" style="display: none">
+      <div class="uploaded-image">
+        <p class="upload-title">Uploaded Image vs Upscaled Image</p>
+      </div>
+    </div>
 
+    <div id="upscaled-column" style="display: none">
+      <div class="image-grid">
+        <div id="uploaded-image-container"></div>
+        <div id="upscaled-image-container"></div>
+      </div>
+    </div>
+
+    <div id="download-button" style="display: none">
+      <div class="Upscale1">
+        <a id="download-link" class="DownloadButt" download="upscaled_image.jpg" href="#" onclick="downloadImage()">
+          DOWNLOAD
+        </a>
+      </div>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script>
         $(document).ready(function () {
@@ -113,9 +113,6 @@
                   var uploadedImageElement = document.createElement("img");
                   uploadedImageElement.src = uploadedImage.src;
                   uploadedImageElement.alt = "Uploaded Image";
-                  uploadedImageElement.style.maxWidth = "600px";
-                  uploadedImageElement.style.width = "100%";
-                  uploadedImageElement.style.weight = "auto";
                   uploadedImageContainer.appendChild(uploadedImageElement);
                   $("#image-container").hide();
                   $("#uploaded-column").show();
@@ -151,6 +148,5 @@
         }
       </script>
       <script src="/static/JS/main.js"></script>
-    </div>
   </body>
 </html>
