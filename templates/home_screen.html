@@ -110,7 +110,13 @@
                  
                   var uploadedImageContainer = document.getElementById("uploaded-image-container");
                   uploadedImageContainer.innerHTML = "";
-                  uploadedImageContainer.appendChild(uploadedImage);
+                  var uploadedImageElement = document.createElement("img");
+                  uploadedImageElement.src = uploadedImage.src;
+                  uploadedImageElement.alt = "Uploaded Image";
+                  uploadedImageElement.style.maxWidth = "600px";
+                  uploadedImageElement.style.width = "100%";
+                  uploadedImageElement.style.weight = "auto";
+                  uploadedImageContainer.appendChild(uploadedImageElement);
                   $("#image-container").hide();
                   $("#uploaded-column").show();
                 },
