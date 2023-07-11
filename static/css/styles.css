@@ -258,6 +258,7 @@ body {
 
 .imglbl {
   background-color: #ecdcc5;
+  background-color: #ecdcc5;
   width: 600px;
   height: 500px;
   border-radius: 50px;
@@ -275,6 +276,19 @@ body {
   border-color: #f55759;
   border-style: dashed;
 }
+
+
+
+  
+.imglbl .uploaded-image-preview {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain; 
+}
+
+
 
 .imgicon {
   margin-left: 50px;
@@ -363,6 +377,16 @@ body {
   max-width: 600px;
 }
 
+.uploaded-image-container{
+  background-color: #ecdcc5;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+
+
 /*GO PREMIUM SCREEN*/
 .prem-free,
 .prem-monthly,
@@ -378,7 +402,7 @@ body {
 
 .prem-column {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: 20px;
   min-height: 100%;
   margin: 20px;
