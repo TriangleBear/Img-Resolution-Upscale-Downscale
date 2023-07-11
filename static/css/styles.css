@@ -12,18 +12,21 @@ body {
   margin: 0;
   padding: 0;
   animation: backgroundAnimation 10s 1;
-  }
-  @keyframes backgroundAnimation {
+}
+
+@keyframes backgroundAnimation {
   0% {
-  background-color: #001233;
+    background-color: #001233;
   }
+
   30% {
-  background-color: #5a6c8d;
+    background-color: #5a6c8d;
   }
+
   100% {
-  background-color: #001233;
+    background-color: #001233;
   }
-  }
+}
 
 .trapezoid1 {
   height: 95px;
@@ -32,6 +35,7 @@ body {
   border-radius: 0px 0px 50px 50px;
   margin: 0px 0px 0px 200px;
 }
+
 .trapezoid2 {
   height: 95px;
   width: 550px;
@@ -39,6 +43,7 @@ body {
   border-radius: 50px 50px 0px 0px;
   margin: 0px 0px 0px 200px;
 }
+
 .login {
   background-color: white;
   width: 360px;
@@ -50,6 +55,7 @@ body {
   color: #f55759;
   font-size: 24px;
 }
+
 .login input {
   width: 350px;
   height: 40px;
@@ -58,12 +64,15 @@ body {
   font-size: 23px;
   color: #001233;
 }
+
 .login username {
   margin-top: 70px;
 }
+
 .login password {
   margin-top: 50px;
 }
+
 .new-user {
   font-size: 18px;
   text-decoration: underline;
@@ -72,6 +81,7 @@ body {
   margin-top: 15px;
   color: #f55759;
 }
+
 .login-button {
   background-color: #001233;
   color: #f55759;
@@ -83,6 +93,7 @@ body {
   margin-top: 80px;
   margin-left: 100px;
 }
+
 .forgot-password {
   color: #f55759;
   font-size: 18px;
@@ -90,23 +101,27 @@ body {
   text-decoration: underline;
   margin-left: 97px;
 }
+
 .login-column {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 450px;
   min-height: 100%;
 }
+
 .logo {
   display: block;
   width: 350px;
   margin-top: 70px;
   margin-left: 50px;
 }
+
 .sample {
   display: block;
   border: 5px solid #f55759;
   border-radius: 50px;
 }
+
 .desc {
   font-size: 20px;
   line-height: 35px;
@@ -126,9 +141,11 @@ body {
   color: #f55759;
   font-size: 24px;
 }
+
 .register p {
   margin: 3px;
 }
+
 .register input {
   width: 350px;
   height: 37px;
@@ -138,6 +155,7 @@ body {
   font-size: 23px;
   color: #001233;
 }
+
 .old-user {
   color: #f55759;
   font-size: 18px;
@@ -146,6 +164,7 @@ body {
   display: block;
   margin-top: 5px;
 }
+
 .signup-button {
   background-color: #001233;
   color: #f55759;
@@ -166,6 +185,7 @@ body {
   padding-top: 10px;
   font-size: 14px;
 }
+
 /*Forgot Password*/
 .forgotpassword {
   background-color: white;
@@ -176,6 +196,7 @@ body {
   padding: 50px;
   color: #f55759;
 }
+
 .forgotpass-buttons a,
 .forgot-pass-submit {
   background-color: #001233;
@@ -197,10 +218,12 @@ body {
   margin-top: 10px;
   font-size: 18px;
 }
+
 .forgotEmail {
   margin-top: 20px;
   font-size: 30px;
 }
+
 .forgot-pass-email {
   width: 350px;
   height: 40px;
@@ -209,6 +232,7 @@ body {
   font-size: 23px;
   color: #001233;
 }
+
 /* HOME SCREEN */
 .menu-bar {
   background-color: #001233;
@@ -232,7 +256,7 @@ body {
   display: flex;
 }
 
-.DownloadButt{  
+.DownloadButt {
   text-align: center;
   padding: 10px 20px;
   background-color: #f55759;
@@ -255,13 +279,16 @@ body {
   width: 150px;
   border-radius: 10px;
 }
+
 .button-group current {
   border-width: 1px;
   border-color: #f55759;
 }
+
 .img {
   display: none;
 }
+
 .photo {
   display: flex;
   justify-content: center;
@@ -287,7 +314,7 @@ body {
   border-style: dashed;
 }
 
-  
+
 .imglbl .uploaded-image-preview {
   display: block;
   margin: auto;
@@ -311,12 +338,14 @@ body {
   margin-top: 200px;
   margin-left: 200px;
 }
+
 .home-title {
   font-size: 80px;
   font-weight: 1000;
   color: #f55759;
   width: 700px;
 }
+
 .home-desc {
   color: #ecdcc5;
   font-size: 25px;
@@ -334,6 +363,7 @@ body {
   font-family: "BeVietnam";
   margin-bottom: 30px;
 }
+
 .upload-status {
   background-color: #ecdcc5;
   width: 300px;
@@ -343,12 +373,13 @@ body {
   border-color: #f55759;
   border-style: dashed;
 }
+
 .Upscale {
   margin-right: 120px;
   margin-bottom: 30px;
 }
 
-.Upscale1{
+.Upscale1 {
   margin-top: 400px;
   margin-left: 80px;
 
@@ -377,6 +408,7 @@ body {
   font-size: 24px;
   margin-top: 118px;
 }
+
 .upscale-title {
   color: #ecdcc5;
   font-size: 24px;
@@ -387,34 +419,36 @@ body {
   border-radius: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
-  }
+}
 
-  .upscaled-image{
-    border: 2px solid #f55759;
-    
-  }
+.upscaled-image {
+  border: 2px solid #f55759;
 
-.upscale-grid{
+}
+
+.upscale-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-left: 50px;
 }
 
-.uploaded-image-container{
+.uploaded-image-container {
   background-color: #ecdcc5;
   max-width: 100%;
   max-height: 100%;
   width: 100%;
   height: 100%;
 }
-.uploaded-image-container{
+
+.uploaded-image-container {
   background-color: #ecdcc5;
   max-width: 100%;
   max-height: 100%;
   width: 100%;
   height: 100%;
 }
-.upscaled-image-container{
+
+.upscaled-image-container {
   background-color: #ecdcc5;
   max-width: 100%;
   max-height: 100%;
@@ -453,6 +487,7 @@ body {
   margin-top: 50px;
   margin-bottom: 20px;
 }
+
 .prem-desc {
   color: #ecdcc5;
   font-size: 25px;
@@ -462,10 +497,12 @@ body {
   margin-right: auto;
   margin-bottom: 100px;
 }
+
 .prem-column p {
   text-align: center;
   font-size: 24px;
 }
+
 .prem-column button {
   width: 150px;
   height: 50px;
@@ -473,11 +510,13 @@ body {
   border-width: 1px;
   border-color: black;
 }
+
 .prem-monthly button,
 .prem-yearly button {
   margin-top: auto;
   margin-bottom: 50px;
 }
+
 .prem-monthly,
 .prem-yearly {
   display: flex;
