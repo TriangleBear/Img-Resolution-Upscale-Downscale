@@ -20,7 +20,7 @@ body {
   }
 
   30% {
-    background-color: #5a6c8d;
+    background-color: #243555;
   }
 
   100% {
@@ -120,6 +120,8 @@ body {
   display: block;
   border: 5px solid #f55759;
   border-radius: 50px;
+  width:500px ;
+  height: 500px;
 }
 
 .desc {
