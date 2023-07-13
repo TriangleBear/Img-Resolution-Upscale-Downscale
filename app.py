@@ -95,11 +95,12 @@ def register():
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
         username = request.form.get("username")
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
 
-        if not username or not first_name or not last_name:
+        if not username or not first_name or not last_name or not password or not email or not confirm_password:
             error_message = "Please fill in all the required fields."
             return render_template("register_screen.html", error_message=error_message)
 
