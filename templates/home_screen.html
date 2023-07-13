@@ -36,7 +36,7 @@
           </div>
 
 
-          </section>
+          </section class="upload-area">
           
           <section>
           <div class="photo">
@@ -83,87 +83,100 @@
               </div>
         </div>
           
-        
-          
           <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
           <script>
-          $(document).ready(function () {
-          // Function to update the uploaded image preview
-          function updateImagePreview(input) {
+$(document).ready(function() {
+        // Function to update the uploaded image preview
+        function updateImagePreview(input) {
           if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-          $('.uploaded-image-preview').attr('src', e.target.result);
-          };
-          reader.readAsDataURL(input.files[0]);
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              $(".uploaded-image-preview").attr("src", e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+
+            var fileSize = input.files[0].size / 1024 / 1024; // Size in MB
+            $(".upload-status").text("Photo Uploaded. " + fileSize.toFixed(2) + " MB");
           }
-          }
-          
-          // Update the image preview when a file is selected
-          $('#file').change(function () {
+        }
+
+        function displayUploadStatus() {
+          $("#upload-buttons").show();
+          $(".upload-status").show();
+        }
+
+        $("#file").change(function() {
           updateImagePreview(this);
-          $("#upscale-instruction").hide(); 
-          });
-          
-          // Rest of your code
-          $("#upscale-button").click(function () {
+          $("#upscale-instruction").hide();
+          $("#upscale-button").show();
+          displayUploadStatus();
+        });
+
+        $("#upscale-button").click(function() {
+          $(".upload-status").text("Photo Processing...");
+          displayUploadStatus();
+
           var imageData = localStorage.getItem("imageData");
           console.log(imageData);
-          if (uploadedImage && imageData != null) {
-          $.ajax({
-          url: "/upscale",
-          method: "POST",
-          data: {
-          imageData: imageData,
-          },
-          success: function (response) {
+          if (imageData != null) {
+            $.ajax({
+              url: "/upscale",
+              method: "POST",
+              data: {
+                imageData: imageData,
+              },
+              success: function(response) {
           var element = document.getElementById("upscaled-column");
           element.style.display = "block";
           var imageSrc = "data:image/jpeg;base64," + response;
           $("#upscaled-image-container").html(
-          "<img src='" + imageSrc + "' alt='Upscaled Image'>"
+            "<img src='" + imageSrc + "' alt='Upscaled Image'>"
           );
           $("#download-link").attr("href", imageSrc);
           $("#download-link").attr("download", "upscaled_image.jpg");
           $("#download-button").css("display", "block");
           $("#upscale-button").hide();
           $(".upload-status").hide();
-          
+
           var uploadedImageContainer = document.getElementById("uploaded-image-container");
           uploadedImageContainer.innerHTML = "";
           uploadedImageContainer.appendChild(uploadedImage);
           $("#image-container").hide();
           $("#uploaded-column").show();
-          },
-          error: function (error) {
+
+          // Reset the file input
+          fileInput.value = null;
+        },
+        error: function (error) {
           console.log(error);
-          },
-          });
-          } else {
-          alert("Please upload an image first!");
-          }
-          });
-          
-          function downloadImage() {
-          var downloadLink = document.getElementById("download-link");
-          var imageSrc = downloadLink.getAttribute("href");
-          var fileName = downloadLink.getAttribute("download");
-          
-          var link = document.createElement("a");
-          link.href = imageSrc;
-          link.download = fileName;
-          link.target = "_blank";
-          link.click();
-          
-          document.body.appendChild(link);
-          link.click();
-          
-          setTimeout(function () {
-          URL.revokeObjectURL(link.href);
-          link.remove();
-          }, 100);
-          }
-          });
+          $(".upload-status").text("Error occurred during upscaling.");
+        },
+      });
+    } else {
+      alert("Please upload an image first!");
+    }
+  });
+
+  function downloadImage() {
+    var downloadLink = document.getElementById("download-link");
+    var imageSrc = downloadLink.getAttribute("href");
+    var fileName = downloadLink.getAttribute("download");
+
+    var link = document.createElement("a");
+    link.href = imageSrc;
+    link.download = fileName;
+    link.target = "_blank";
+    link.click();
+
+    document.body.appendChild(link);
+    link.click();
+
+    setTimeout(function () {
+      URL.revokeObjectURL(link.href);
+      link.remove();
+    }, 100);
+  }
+});
           </script>
       <script src="/static/JS/main.js"></script>
   </body>
