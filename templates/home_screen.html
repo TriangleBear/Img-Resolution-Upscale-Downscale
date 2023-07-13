@@ -52,6 +52,7 @@
           <div id="image-container" style="display: none;">
             <!-- Empty div -->
             </div>
+            <p id="upscale-instruction" class="upscale-instruction">Upload your image here</p>
           </label>
           
           
@@ -101,6 +102,7 @@
           // Update the image preview when a file is selected
           $('#file').change(function () {
           updateImagePreview(this);
+          $("#upscale-instruction").hide(); 
           });
           
           // Rest of your code

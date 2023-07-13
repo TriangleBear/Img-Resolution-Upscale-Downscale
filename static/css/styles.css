@@ -3,7 +3,6 @@
   src: url("../utils/fonts/BeVietnamPro-Regular.ttf") format("truetype");
 }
 
-html,
 body {
   background-color: #001233;
   width: 100%;
@@ -11,57 +10,58 @@ body {
   font-family: "BeVietnam";
   margin: 0;
   padding: 0;
-  animation: backgroundAnimation 10s 1;
-}
-
-@keyframes backgroundAnimation {
-  0% {
-    background-color: #001233;
-  }
-
-  30% {
-    background-color: #243555;
-  }
-
-  100% {
-    background-color: #001233;
-  }
 }
 
 .trapezoid1 {
-  height: 95px;
-  width: 550px;
+  width: 35vw;
+  height: 10vh;
   background-color: #f55759;
   border-radius: 0px 0px 50px 50px;
-  margin: 0px 0px 0px 200px;
 }
+
 .trapezoid2 {
-  height: 95px;
-  width: 550px;
+  width: 35vw;
+  height: 10vh;
   background-color: #f55759;
   border-radius: 50px 50px 0px 0px;
-  margin: 0px 0px 0px 200px;
 }
+
 .login {
   background-color: white;
-  width: 360px;
-  height: 570px;
+  width: 20vw;
+  height: 60vh;
+  margin-top: auto;
+  margin-bottom: auto;
   border-radius: 50px;
-  margin: 30px 10px 30px 245px;
-  padding: 50px;
+  padding: 3vw;
   font-family: "BeVietnam";
   color: #f55759;
   font-size: 24px;
 }
+
+.form-style{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #001233;
+  margin-left: 5vw;
+}
+.desc-style{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 5vw;
+}
+
 .login input {
-  width: 350px;
+  width: 20vw;
   height: 40px;
   background-color: #ecdcc5;
   border: none;
   font-size: 23px;
   color: #001233;
 }
-
 
 .login username {
   margin-top: 70px;
@@ -83,7 +83,7 @@ body {
   color: #f55759;
   display: block;
   font-size: 22px;
-  padding: 10px 40px;
+  padding: 1vh 2vw;
   border: none;
   border-radius: 20px;
   margin-top: 80px;
@@ -94,19 +94,18 @@ body {
   font-size: 18px;
   font-style: italic;
   text-decoration: underline;
-  margin-left: 97px;
+  margin-left: 5.3vw;
 }
 .login-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 450px;
-  min-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  max-height: 100vh;
 }
 .logo {
   display: block;
   width: 350px;
-  margin-top: 70px;
-  margin-left: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .sample {
   display: block;
@@ -126,23 +125,23 @@ body {
 
 .register {
   background-color: white;
-  width: 360px;
-  height: 590px;
+  width: 20vw;
+  height: 60vh;
+  margin-top: auto;
+  margin-bottom: auto;
   border-radius: 50px;
-  margin: 30px 10px 30px 245px;
-  padding: 40px 50px;
+  padding: 3vw;
   color: #f55759;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 .register p {
   margin: 3px;
 }
 .register input {
-  width: 350px;
-  height: 37px;
+  width: 20vw;
+  height: 4vh;
   background-color: #ecdcc5;
   border: none;
-  margin: 1px;
   font-size: 23px;
   color: #001233;
 }
@@ -159,46 +158,14 @@ body {
   color: #f55759;
   display: block;
   font-size: 22px;
-  padding: 10px 40px;
+  padding: 1vh 2vw;
   border-radius: 20px;
-  margin-top: 20px;
-  margin-left: 100px;
+  margin-top: 2vh;
+  margin-left: auto;
+  margin-right: auto;
   border: none;
 }
 
-
-
-.register p {
-  margin: 3px;
-}
-.register input {
-  width: 350px;
-  height: 37px;
-  background-color: #ecdcc5;
-  border: none;
-  margin: 1px;
-  font-size: 23px;
-  color: #001233;
-}
-.old-user {
-  color: #f55759;
-  font-size: 18px;
-  text-decoration: underline;
-  font-style: italic;
-  display: block;
-  margin-top: 5px;
-}
-.signup-button {
-  background-color: #001233;
-  color: #f55759;
-  display: block;
-  font-size: 22px;
-  padding: 10px 40px;
-  border-radius: 20px;
-  margin-top: 20px;
-  margin-left: 100px;
-  border: none;
-}
 .error-message {
   font-size: 14px;
 }
@@ -211,40 +178,44 @@ body {
 /*Forgot Password*/
 .forgotpassword {
   background-color: white;
-  width: 360px;
-  height: 299px;
+  width: 20vw;
+  height: 18vw;
   border-radius: 50px;
-  margin: 165.5px 10px 165.5px 245px;
-  padding: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 3vw;
   color: #f55759;
 }
 .forgotpass-buttons a,
-.forgot-pass-submit {
+.forgot-pass-submit{
   background-color: #001233;
   color: #f55759;
   display: inline-block;
-  font-size: 22px;
-  width: 150px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  font-size: 1.5rem;
+  padding: 1vh 2vw;
   border-radius: 20px;
-  margin-left: 15px;
-  margin-top: 20px;
+  margin-left: 1vmin;
+  margin-top: 5vh;
   border: none;
   text-align: center;
   text-decoration: none;
 }
-
+.forgot-pass-submit{
+  width: 9vw;
+}
+.back-button{
+  width: 5vw;
+}
 .forgotpassDisc {
   margin-top: 10px;
   font-size: 18px;
 }
 .forgotEmail {
-  margin-top: 20px;
-  font-size: 30px;
+  margin-top: 1vw;
+  font-size: 1.7rem;
 }
 .forgot-pass-email {
-  width: 350px;
+  width: 20vw;
   height: 40px;
   background-color: #ecdcc5;
   border: none;
@@ -298,6 +269,10 @@ body {
   width: 150px;
   border-radius: 10px;
 }
+.menu-bar button:hover{
+  color: #ecdcc5;
+}
+
 .button-group current {
   border-width: 1px;
   border-color: #f55759;
@@ -319,8 +294,6 @@ body {
   height: 300px;
   border-radius: 50px;
   margin-top: 270px;
-  margin-right: 200px;
-  margin-left: 80px;
   padding: 50px 50px;
   font-size: 24px;
   display: flex;
@@ -346,14 +319,13 @@ body {
 }
 
 .home-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-evenly;
   border-color: #f55759;
 }
 
 .home-describe {
   margin-top: 200px;
-  margin-left: 200px;
 }
 
 .home-title {
@@ -383,9 +355,7 @@ body {
 
 .upload-status {
   background-color: #ecdcc5;
-  width: 300px;
-  height: 100px;
-  padding: 10px 130px;
+  padding: 1vh 2.8vw;
   border-radius: 20px;
   border-color: #f55759;
   border-style: dashed;
@@ -442,38 +412,24 @@ body {
 }
 
 .upscaled-image {
+  max-width: 80vw;
   border: 2px solid #f55759;
 
 }
 
+.upscale-instruction{
+  font-size: 15px;
+  color: #f55759
+}
 .upscale-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-left: 50px;
 }
 
-.uploaded-image-container {
-  background-color: #ecdcc5;
+.upscaled-image-container img{
   max-width: 100%;
-  max-height: 100%;
-  width: 100%;
-  height: 100%;
-}
-
-.uploaded-image-container {
-  background-color: #ecdcc5;
-  max-width: 100%;
-  max-height: 100%;
-  width: 100%;
-  height: 100%;
-}
-
-.upscaled-image-container {
-  background-color: #ecdcc5;
-  max-width: 100%;
-  max-height: 100%;
-  width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .upload-title {
@@ -504,11 +460,10 @@ body {
 }
 
 .prem-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 20px;
+  display: flex;
+  justify-content: space-evenly;
   min-height: 100%;
-  margin: 20px;
+  margin-top: 20px;
 }
 
 .prem-title {
@@ -516,7 +471,7 @@ body {
   font-size: 70px;
   text-align: center;
   line-height: 70px;
-  margin-top: 50px;
+  margin-top: 100px;
   margin-bottom: 20px;
 }
 .prem-desc {
@@ -547,7 +502,8 @@ body {
 }
 
 .prem-monthly,
-.prem-yearly {
+.prem-yearly,
+.prem-free{
   display: flex;
   flex-direction: column;
   align-items: center;
